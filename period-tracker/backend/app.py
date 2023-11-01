@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
 
-
+db.init_app(app)
 
 @app.route('/update_date', methods=['POST'])
 def update_date():
