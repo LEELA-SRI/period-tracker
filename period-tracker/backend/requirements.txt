@@ -1,3 +1,4 @@
 flask-SQLALCHEMY
 flask-CORS
 flask
+gunicorn
