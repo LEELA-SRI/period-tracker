@@ -7,12 +7,12 @@ import './App.css'; // Import your CSS file
 function App() {
   const [startDate, setStartDate] = useState(null);
   const [periodDates, setPeriodDates] = useState([]);
-
+console.log(fetch(process.env.REACT_APP_URL_PREFIX));
   useEffect(() => {
     // Fetch the period start dates from the backend when the component first mounts
     const fetchPeriodDates = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/get_date');
+        const response = await axios.get(process.env.REACT_APP_URL_PREFIX+'/get_date');
         // console.log(response);
         setPeriodDates(response.data.dates.map(date => new Date(date)));
         
@@ -25,7 +25,7 @@ function App() {
             // Set the time to 00:00:00
             const newStartDate = new Date(year, month - 1, day, 0, 0, 0);
             setStartDate(newStartDate);
-            axios.post('http://localhost:5000/update_date', { start_date: userDate });
+            axios.post(process.env.REACT_APP_URL_PREFIX+'/update_date', { start_date: userDate });
           }
         }
       } catch (error) {
@@ -35,7 +35,7 @@ function App() {
 
     fetchPeriodDates();
   }, []);
-
+ 
   const getTileClassName = ({ date, view }) => {
     // Convert both dates to yyyy-mm-dd format for comparison
     const dateStr = date.toISOString().slice(0, 10);
@@ -64,7 +64,9 @@ function App() {
     setStartDate(newStartDate);
     setPeriodDates([...periodDates, newStartDate]);
     // Send a request to the backend whenever the start date is updated
-    const response = await axios.post('http://localhost:5000/update_date', { start_date: newStartDateStr });
+    console.log('hi');
+   
+    const response = await axios.post(process.env.REACT_APP_URL_PREFIX+'/update_date', { start_date: newStartDateStr });
     console.log(response.data);
   };
 
@@ -72,7 +74,7 @@ function App() {
     <div className="App">
       {startDate && (
         <>
-          <label>
+          <label className={process.env.REACT_APP_URL_PREFIX}>
             Change Start Date:
             <input type="date" onChange={handleDateChange} />
           </label>
