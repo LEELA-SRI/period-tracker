@@ -1,12 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
-from app import User
+from models import User
 
 db_uri = 'sqlite:///mydb.db'
 engine = create_engine(db_uri)
 
 if not database_exists(engine.url):
     create_database(engine.url)
-    User.metadata.create_all(engine)
-
-
+User.metadata.create_all(engine)
