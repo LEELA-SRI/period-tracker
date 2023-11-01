@@ -3,4 +3,4 @@ services:
   name: pain
   env: python
   buildCommand: "pip install -r requirements.txt"
-  startCommand: "python create_db.py && python app.py"
+  startCommand: "python app.py"

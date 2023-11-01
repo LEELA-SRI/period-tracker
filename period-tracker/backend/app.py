@@ -3,12 +3,12 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import jsonify
-from models import User
+from models import User,db
 
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
-db = SQLAlchemy(app)
+
 
 
 @app.route('/update_date', methods=['POST'])
@@ -36,4 +36,6 @@ def get_date():
         return jsonify({'dates': []})
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(port=5000, debug=True)
