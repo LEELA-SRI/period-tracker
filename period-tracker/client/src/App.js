@@ -64,7 +64,6 @@ console.log(fetch(process.env.REACT_APP_URL_PREFIX));
     setStartDate(newStartDate);
     setPeriodDates([...periodDates, newStartDate]);
     // Send a request to the backend whenever the start date is updated
-    console.log('hi');
    
     const response = await axios.post(process.env.REACT_APP_URL_PREFIX+'/update_date', { start_date: newStartDateStr });
     console.log(response.data);
@@ -74,7 +73,7 @@ console.log(fetch(process.env.REACT_APP_URL_PREFIX));
     <div className="App">
       {startDate && (
         <>
-          <label className={process.env.REACT_APP_URL_PREFIX}>
+          <label>
             Change Start Date:
             <input type="date" onChange={handleDateChange} />
           </label>
