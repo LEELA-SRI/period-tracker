@@ -1,13 +1,12 @@
-import os
 from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database
 from app import User
 
-
-# Use an absolute path to the database file
-db_path = os.path.join(os.path.dirname(__file__), 'mydb.db')
-db_uri = 'sqlite:///{}'.format(db_path)
-
+db_uri = 'sqlite:///mydb.db'
 engine = create_engine(db_uri)
-User.metadata.create_all(engine)
 
-print(db_uri)
+if not database_exists(engine.url):
+    create_database(engine.url)
+    User.metadata.create_all(engine)
+
+

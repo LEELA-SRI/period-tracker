@@ -6,7 +6,7 @@ from flask import jsonify
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///c:\\Users\\leela\\aprendizaje\\GitHub\\period-tracker\\period-tracker\\backend\\mydb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):
